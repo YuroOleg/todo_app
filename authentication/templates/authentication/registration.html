@@ -1,0 +1,25 @@
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {% for field in registration_form %}
+        {{field.label}}:
+        <br>
+        {{field}}
+        {% for error in field.errors %}
+            {{error}}
+        {% endfor %}
+        <br>
+    {% endfor %}
+    <br>
+    <button type="submit">Submit</button>
+</form>
+
+
+
