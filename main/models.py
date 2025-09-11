@@ -11,12 +11,19 @@ class Task(models.Model):
         5: "Optional",
     }
 
+    STATUS = {
+        "Pending" : "Task is waiting to be done",
+        "Overdue" : "Task wasn't done in time ",
+        "Done" : "Task was done in time",
+    }
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     description = models.TextField()
     priority = models.IntegerField(choices=PRIORITY)
     deadline = models.DateTimeField()
     created = models.DateTimeField(auto_now_add = True)
+    status = models.CharField(max_length=10, choices=STATUS, default="Pending")
 
     def __str__(self):
         return self.title
