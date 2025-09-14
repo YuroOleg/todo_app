@@ -10,7 +10,7 @@ class TaskForm(forms.ModelForm):
         fields = ['title', 'description', 'priority']
 
     deadlineDate = forms.DateField(
-        label="Date", 
+        label="Deadline Date", 
         input_formats=[
             "%Y-%m-%d",          
             "%d.%m.%Y",
@@ -18,7 +18,7 @@ class TaskForm(forms.ModelForm):
         ],
         required=True,
         )
-    deadlineTime = forms.TimeField(label="Time", required=True)
+    deadlineTime = forms.TimeField(label="Deadline Time", required=True)
 
     def clean(self):
         cleaned = super().clean()
@@ -51,6 +51,13 @@ class TaskForm(forms.ModelForm):
         if self.instance and self.instance.deadline:
             self.fields['deadlineDate'].initial = self.instance.deadline.date()
             self.fields['deadlineTime'].initial = self.instance.deadline.time()
+
+        for field_name in ['title', 'description', 'priority']:
+            self.fields[field_name].widget.attrs.update({'class': 'form-control'})
+        self.fields['description'].widget.attrs.update({'style': 'resize: none;'})
+
+        self.fields['deadlineDate'].widget.attrs.update({'class': 'form-control'})
+        self.fields['deadlineTime'].widget.attrs.update({'class': 'form-control'})
 
 
 

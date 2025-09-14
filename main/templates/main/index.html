@@ -1,5 +1,61 @@
-{% for task in tasks %}
-    {{task.title}}
-    <br>
-    {{task.deadline}}
-{% endfor %}
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block body %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <a href = "{% url 'add' %}" class="btn btn-secondary col-lg-5 col-8 my-3 ">
+                    <img style="width: 20px; height: 20px;" src="{% static 'main/plus.png' %}">
+                </a>
+            </div>
+            {% for task in tasks %}    
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-8 shadow bg-body rounded my-3 border-right-5 border-end border-5 border-secondary task-card"
+                        data-href="{% url 'edit' task.id %}"
+                        style="cursor:pointer;">
+                        <div>
+                            <div class="my-3">
+                                <h3>{{task.title}}</h3>
+                                {% for i in "54321" %}
+                                    {% if forloop.revcounter >= task.priority %}
+                                        <img style="width: 20px; height: 20px;" src="{% static 'main/full-star.png' %}">
+                                    {% else %}
+                                        <img style="width: 20px; height: 20px;" src="{% static 'main/star.png' %}">
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="mt-3 mb-5">
+                                <p class="fs-5">{{task.description}}</p>
+                            </div>
+                            <div class="">
+                                <div>
+                                    <p class="fs-6">Created: <span class="fw-bold">{{task.created}}</span></p>
+                                    <p class="fs-6">Ends: <span class="fw-bold">{{task.deadline}}</span></p>
+                                </div>
+                            </div>
+                            
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="d-flex justify-content-center">
+                                    <button class="btn btn-success my-3 px-5" type="submit" name="done_button" value="{{task.id}}">Done</button>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".task-card").forEach(function(card) {
+                    card.addEventListener("click", function(e) {
+                        if (e.target.tagName === "BUTTON" || e.target.tagName === "A") {
+                            return;
+                        }
+                        window.location = card.dataset.href;
+                    });
+                });
+            });
+        </script>
+{% endblock %}

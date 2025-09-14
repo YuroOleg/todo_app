@@ -1,5 +1,27 @@
-<form method="post">
-    {% csrf_token %}
-    {{adding_form.as_p}}
-    <button type="submit">Add</button>
-</form>
+{% extends 'main/base.html' %}
+{% block body %}
+    
+
+
+    <div class="row justify-content-center">
+        <div class="col-lg-5 col-8 shadow bg-body rounded my-3 border-right-5 border-end border-5 border-secondary">
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+                    {% for field in adding_form %}
+                        <div class="my-3">
+                            <h5>{{field.label}}</h5>
+                            {{field}}
+                           <p class="text-danger">{{field.errors}}</p> 
+                        </div>
+                    {% endfor %}
+                    <div class="">
+                        <button class="btn btn-secondary my-3 me-5  px-5" type="submit">Add</button>
+                        <a class="btn btn-secondary my-3 px-5 me-5" type="submit" href="{% url 'home' %}">Cancel</a>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
