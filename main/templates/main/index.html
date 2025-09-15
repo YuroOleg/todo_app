@@ -8,6 +8,13 @@
                     <img style="width: 20px; height: 20px;" src="{% static 'main/plus.png' %}">
                 </a>
             </div>
+            {% if tasks.count == 0 %}
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-8 ">
+                        <h1>Looks like there is no tasks to do right now...</h1>
+                    </div>
+                </div>
+            {% endif %}
             {% for task in tasks %}    
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-8 shadow bg-body rounded my-3 border-right-5 border-end border-5 border-secondary task-card"

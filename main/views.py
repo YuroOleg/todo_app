@@ -1,18 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Task
+from user_profile.models import Profile
 from .forms import TaskForm
 # Create your views here.
 
 @login_required(login_url='login')
 def index(request):
+    user = request.user
+
     if request.method == 'POST':
         id = int(request.POST.get("done_button"))
         task = Task.objects.get(id=id)
         task.status = 'Done'
+        profile = Profile.objects.get(user=user)
+        profile.tasks_done+=1
+        profile.save()
         task.save()
 
-    user = request.user
+    
     tasks = Task.objects.filter(user=user, status='Pending').order_by("-created")
     return render(request, 'main/index.html', {'tasks': tasks})
 

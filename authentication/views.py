@@ -9,7 +9,7 @@ def registration(request):
         registration_form = forms.RegistrationForm(request.POST)
         if registration_form.is_valid():
             registration_form.save()
-            return redirect('registration')
+            return redirect('home')
     else:
         registration_form = forms.RegistrationForm()
     
@@ -24,7 +24,7 @@ def logging_in(request):
             user = authenticate(request, username=username, password = password)
             if user is not None:
                 login(request, user)
-                return redirect('login')
+                return redirect('home')
             else:
                 messages.error(request, "Incorrect username or password")
                 return redirect('login')

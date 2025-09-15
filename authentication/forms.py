@@ -59,6 +59,17 @@ class RegistrationForm(forms.ModelForm):
 
         return user
     
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field_name in ['username', 'email']:
+            self.fields[field_name].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+
+
+    
 
 class LoginForm(forms.Form):
     username = forms.CharField(label = 'Your username', required=True, max_length=150)   
@@ -74,4 +85,10 @@ class LoginForm(forms.Form):
             raise ValidationError({"password": e.messages})
 
         return cleared
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password'].widget.attrs.update({'class': 'form-control'})
 

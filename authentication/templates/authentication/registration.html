@@ -1,25 +1,31 @@
-{% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
-{% endif %}
-
-<form method="post">
-    {% csrf_token %}
-    {% for field in registration_form %}
-        {{field.label}}:
-        <br>
-        {{field}}
-        {% for error in field.errors %}
-            {{error}}
-        {% endfor %}
-        <br>
-    {% endfor %}
-    <br>
-    <button type="submit">Submit</button>
-</form>
-
+{% extends 'authentication/base.html' %}
+{% block body %}
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-8 shadow bg-body rounded my-3 border-right-5 border-end border-5 border-secondary">
+      <form class="py-3" method="post">
+            {% csrf_token %}
+            {% for field in registration_form %}
+                {{field.label}}:
+                <br>
+                {{field}}
+                {% for error in field.errors %}
+                    <p class="text-danger">{{error}}</p>
+                {% endfor %}
+                <br>
+            {% endfor %}
+            {% if messages %}
+                {% for message in messages %}
+                  <p class="{{ message.tags }} text-danger">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            <br>
+            <div class="">
+              <button class="btn btn-secondary  me-5  px-5" type="submit">Login</button>
+              <a class="btn btn-secondary  px-5 me-5" type="submit" href="{% url 'login' %}">Already have an account?</a>
+            </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
 
 
