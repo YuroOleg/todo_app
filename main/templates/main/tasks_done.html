@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block body %}
+        <div class="container">
+            {% if tasks.count == 0 %}
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-8 ">
+                        <h1 class="mt-5">Looks like there is no complete tasks...</h1>
+                    </div>
+                </div>
+            {% endif %}
+            {% for task in tasks %}    
+                <div class="row justify-content-center">
+                    <div class="col-lg-5 col-8 shadow bg-body rounded my-3 border-right-5 border-end border-5 border-success">
+                        <div>
+                            <div class="my-3">
+                                <div class="d-flex align-items-center">
+                                   <h3 class="text-decoration-line-through">{{task.title}}</h3>
+                                    <img class="ms-1" style="width: 20px; height: 20px;" src="{% static 'main/check_mark.png' %}"> 
+                                </div>
+                                
+                                <div>
+                                    {% for i in "54321" %}
+                                        {% if forloop.revcounter >= task.priority %}
+                                            <img style="width: 20px; height: 20px;" src="{% static 'main/full-star.png' %}">
+                                        {% else %}
+                                            <img style="width: 20px; height: 20px;" src="{% static 'main/star.png' %}">
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                
+                            </div>
+                            <div class="mt-3 mb-5">
+                                <p class="fs-5">{{task.description}}</p>
+                            </div>
+                            <div class="">
+                                <div>
+                                    <p class="fs-6">Created: <span class="fw-bold">{{task.created}}</span></p>
+                                    <p class="fs-6">Ends: <span class="fw-bold">{{task.deadline}}</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

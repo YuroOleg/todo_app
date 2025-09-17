@@ -23,6 +23,21 @@ def index(request):
     return render(request, 'main/index.html', {'tasks': tasks})
 
 @login_required(login_url='login')
+def tasks_done(request):
+    user = request.user
+    
+    tasks = Task.objects.filter(user=user, status='Done').order_by("-created")
+    return render(request, 'main/tasks_done.html', {'tasks': tasks})
+
+@login_required(login_url='login')
+def tasks_failed(request):
+    user = request.user
+
+    
+    tasks = Task.objects.filter(user=user, status='Overdue').order_by("-created")
+    return render(request, 'main/tasks_failed.html', {'tasks': tasks})
+
+@login_required(login_url='login')
 def task_adding(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
