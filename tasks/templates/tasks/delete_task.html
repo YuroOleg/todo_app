@@ -1,0 +1,21 @@
+{% extends 'tasks/base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-dark border-end border-5">
+                <div class="m-3">
+                    <div class="d-flex justify-content-center">
+                       <p class="fw-bold fs-2">Are you sure you want to delete this task?</p> 
+                    </div>
+                    
+                    <form method="post" class="d-flex justify-content-center">
+                        {% csrf_token %}
+                        <a href="{% url 'home' %}" class="btn btn-dark me-5 w-25">Return</a>
+                        <button class="btn btn-danger w-25">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

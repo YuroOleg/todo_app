@@ -1,0 +1,32 @@
+{% extends 'user_profile/base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-dark border-end border-5">
+                <div class="p-5">
+                <form method="post" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="d-xl-flex justify-content-around align-items-start">
+                        <div class="" style="width: 300px;">
+                            <img class="w-100 rounded my-3" src="/media/{{profile.profile_picture}}" alt="">
+                            <input name="profile_picture" class="form-control my-3" type="file">
+                                
+                        </div>
+                        <div class="" style="width: 300px;">
+                            <p class="fs-4 fw-bold">Bio: </p>
+                            <textarea class="form-control my-3" name="bio" id="" style="resize: none; height: 330px">{{profile.bio}}</textarea>     
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-evenly">
+                        <button class="btn btn-secondary" type="submit">Save changes</button>
+                    </div>
+                </form>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

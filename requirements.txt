@@ -1,0 +1,8 @@
+﻿Django==5.2.6
+pillow==11.3.0
+redis==6.4.0
+celery==5.5.3
+python-dateutil==2.9.0.post0
+pytz==2025.2
+python-decouple==3.8
+dj-database-url==3.0.1

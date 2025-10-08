@@ -1,0 +1,51 @@
+
+{% extends 'tasks/base.html' %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+             <div class="col-lg-8 m-3">
+                
+                {% if remindings.count < 1 %}
+                    <p class="fs-3 fw-bold text-center my-5">You've read all messages...</p>
+                {% endif %}
+            </div>
+
+
+            {% for reminding in remindings %}
+
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-info border-end border-5">
+                <div class="m-5">
+                    <div class="d-flex justify-content-between">
+                        <div class = "d-flex align-items-center">
+                            <p class="fs-2 p-0 m-0">{{reminding.task_title}}</p>
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-2">
+                        <p class = "fs-4">The deadline is approaching, and you have {{reminding.time_left}} left to complete this task.</p> 
+                    </div>
+                    <div>
+                        <p class="">At: {{reminding.created_at}}</p>
+                    </div>
+                    <div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="reminding" value="{{reminding.id}}" class="btn btn-info px-4 text-white">Got it!</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+
+
+
+{% endblock %}

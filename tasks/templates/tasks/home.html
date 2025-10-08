@@ -1,0 +1,73 @@
+
+{% extends 'tasks/base.html' %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 m-3">
+                <a class="btn btn-dark rounded-pill w-100" href = "{% url 'create_task' %}">
+                    <img class="my-1" src="{% static 'tasks/icons/icon_plus.png' %}" style="height: 32px; width: 32px;" alt="">
+                </a>
+                
+            </div>
+            <div class="col-lg-8 m-3">
+                
+                {% if tasks.count < 1 %}
+                    <p class="fs-3 fw-bold text-center my-5">Looks like there is no pending tasks...</p>
+                {% endif %}
+            </div>
+            {% for task in tasks %}
+
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-dark border-end border-5"
+                data-url="{% url 'edit_task' task.id %}"
+                style="cursor: pointer;"
+                onclick="window.location.href=this.dataset.url;">
+                <div class="m-5">
+                    <div class="d-flex justify-content-between">
+                        <div class = "d-flex align-items-center">
+                            <p class="fs-2 p-0 m-0">{{task.title}}</p>
+                            {% for i in '12345' %}
+                                {% if forloop.counter <= task.priority %}
+                                    <img src="{% static 'tasks/icons/icon_fullstar.png' %}" style="height: 32px; width: 32px;" alt="">
+                                {% else %}
+                                    <img src="{% static 'tasks/icons/icon_star.png' %}" style="height: 32px; width: 32px;" alt="">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div>
+                            {% if task.reminder == 1 %}
+                                    <img src="{% static 'tasks/icons/icon_blackreminder.png' %}" style="height: 32px; width: 32px;" alt="">
+                            {% else %}
+                                    <img src="{% static 'tasks/icons/icon_fullblackreminder.png' %}" style="height: 32px; width: 32px;" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <p class = "fs-4 mt-3">{{task.description}}</p>
+                        
+                    </div>
+                    <div>
+                        <p class="">Till: {{task.local_deadline}}</p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <form method="post">
+                            {% csrf_token %}
+                            <button type='submit' name='done' value='{{task.id}}' class="btn btn-success px-4">Done</button>
+                        </form>
+                        
+                    </div>
+                </div>
+                
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+
+
+
+{% endblock %}

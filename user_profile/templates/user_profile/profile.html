@@ -1,0 +1,35 @@
+{% extends 'user_profile/base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-dark border-end border-5">
+                <div class="p-5">
+                    <div class="d-xl-flex justify-content-around align-items-start">
+                        <div class="" style="width: 300px">
+                            <img class="w-100 rounded my-3" src="/media/{{profile.profile_picture}}" alt="">
+                        
+                            
+                        </div>
+                        <div class="" style="width: 300px">
+                            <p class="fs-2 fw-bold" >{{request.user.username}}</p>
+                            {% if profile.bio|length > 0 %}
+                                <p class="text-break"><span class="fw-bold">Your bio: </span>{{profile.bio}}</p>
+                            {% endif %}
+                            <hr>
+                            <p><span class="text-success">Tasks finished:</span> {{profile.tasks_complete}}</p>
+                            <hr>
+                            <p><span class="text-danger">Tasks failed:</span> {{profile.tasks_failed}}</p>
+                            <hr>
+                            <a class="btn btn-secondary" href="{% url 'edit_profile' %}">Change profile</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+{% endblock %}

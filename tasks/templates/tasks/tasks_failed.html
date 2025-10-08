@@ -1,0 +1,58 @@
+
+{% extends 'tasks/base.html' %}
+{% load static %}
+{% block body %}
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 m-3">
+                
+                {% if tasks.count < 1 %}
+                    <p class="fs-3 fw-bold text-center my-5">Looks like there is no failed tasks...</p>
+                {% endif %}
+            </div>
+            {% for task in tasks %}
+
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-danger border-end border-5">
+                <div class="m-5">
+                    <div class="d-flex justify-content-between">
+                        <div class = "d-flex align-items-center">
+                            <img src="{% static 'tasks/icons/icon_red_cross.png' %}" class="me-3" style="height: 32px; width: 32px;" alt="">
+                            <p class="fs-2 text-decoration-line-through p-0 m-0">{{task.title}}</p>
+                            {% for i in '12345' %}
+                                {% if forloop.counter <= task.priority %}
+                                    <img src="{% static 'tasks/icons/icon_fullstar.png' %}" style="height: 32px; width: 32px;" alt="">
+                                {% else %}
+                                    <img src="{% static 'tasks/icons/icon_star.png' %}" style="height: 32px; width: 32px;" alt="">
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div>
+                            {% if task.reminder == 1 %}
+                                    <img src="{% static 'tasks/icons/icon_blackreminder.png' %}" style="height: 32px; width: 32px;" alt="">
+                            {% else %}
+                                    <img src="{% static 'tasks/icons/icon_fullblackreminder.png' %}" style="height: 32px; width: 32px;" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-5 mt-2">
+                        <p class = "fs-4">{{task.description}}</p>
+                        
+                    </div>
+                    <div>
+                        <p class="">Till: {{task.local_deadline}}</p>
+                    </div>
+                </div>
+                
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+
+
+
+
+
+{% endblock %}

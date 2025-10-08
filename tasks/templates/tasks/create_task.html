@@ -1,0 +1,68 @@
+{% extends 'tasks/base.html' %}
+
+{% block body %}
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8 m-3 shadow-lg rounded-start-5 border-dark border-end border-5">
+                <form method="post" class="m-3">
+                    {%csrf_token%}
+                       
+                    <div class="mt-3">
+                       <p class="m-0 fw-bold">{{form.title.label}}:</p>
+                        {{form.title}} 
+                    </div>
+                    {% for error in form.title.errors %}
+                        <p class="text-danger">{{error}}</p>
+                    {% endfor %}
+
+                    <div class="mt-3">
+                       <p class="m-0 fw-bold">{{form.description.label}}:</p>
+                        {{form.description}} 
+                    </div>
+                    {% for error in form.description.errors %}
+                        <p class="text-danger">{{error}}</p>
+                    {% endfor %}
+
+                    
+                    <div class="mt-3">
+                        <p class="m-0 fw-bold">{{form.priority.label}}:</p>
+                        {{form.priority}} 
+                    </div>
+                    {% for error in form.priority.errors %}
+                        <p class="text-danger">{{error}}</p>
+                    {% endfor %}
+
+                    <div class="mt-3">
+                        <p class="m-0 fw-bold">{{form.reminder.label}}:</p>
+                        {{form.reminder}} 
+                    </div>
+                    {% for error in form.reminder.errors %}
+                        <p class="text-danger">{{error}}</p>
+                    {% endfor %}
+
+                    <div class="d-flex mt-3">
+                        <div class="me-3">
+                            <p class="m-0 fw-bold">{{form.deadline_date.label}}:</p>
+                            {{form.deadline_date}} 
+                        </div>
+                        <div>
+                            <p class="m-0 fw-bold">{{form.deadline_time.label}}:</p>
+                            {{form.deadline_time}} 
+                        </div>
+                    </div>
+                    {% for error in form.deadline_date.errors %}
+                        <p class="text-danger">{{error}}</p>
+                    {% endfor %}
+                    {% for error in form.deadline_time.errors %}
+                        <p class="text-danger">{{error}}</p>
+                    {% endfor %}
+
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-success mt-5 w-25">Add task</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
